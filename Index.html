@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vue-composition-simple</title>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <script src="dist/vue.js"></script>
+</head>
+
+<body>
+  <div id='app'></div>
+  <script>
+    let { render } = Vue
+    const state = { count: 0 };
+    const vnode = {
+      tag: 'div',
+      props: {
+        style: { color: 'red', border: '1px solid yellow',padding:'20px' }
+      },
+      children:
+        [{
+          tag: 'p',
+          props: null,
+          children: `vue@3- 渲染 ${state.count}`
+        }, {
+          tag: 'button',
+          props: {
+            onClick: () => alert(state.count)
+          },
+          children: '点我啊'
+        }]
+    }
+    render(vnode, app);
+  </script>
+</body>
+
+</html>
+<style >
+  p{
+    /* border: 1px solid yellow; */
+  }
+
+</style>
