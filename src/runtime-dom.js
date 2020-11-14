@@ -21,22 +21,19 @@ export const nodeOps = {
   createElement: (tag) => document.createElement(tag),
   setElementText: (el, text) => el.textContent = text,
   // 属性处理的方法；
-  pathProps: (el, key, value)=>{
-    console.log(el, key, value);
+  pathProps: (el, key, value) => {
     let isOn = onReg.test(key)
-    if(isOn){
+    if (isOn) {
       let eventName = key.slice(2).toLowerCase()
-      console.log(el);
       el.addEventListener(eventName, value)
-    }else{
-      if(key ==='style'){
-      // 样式绑定  style: { color: 'red' ,border:'1px soild blue'}
+    } else {
+      if (key === 'style') {
+        // 样式绑定  style: { color: 'red' ,border:'1px soild blue'}
         for (const key in value) {
-          console.log(value);
-            el.style[key]=value[key]
+          el.style[key] = value[key]
         }
-      }else{
-        el.setAttribute(key,value)
+      } else {
+        el.setAttribute(key, value)
       }
     }
   }

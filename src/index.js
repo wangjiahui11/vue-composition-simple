@@ -10,8 +10,8 @@ export function render (vnode, container) {
 function patch (n1, n2, container) {
   if(typeof n2.tag=== 'string'){
     mountElement(n2, container)
-  }else{
-
+  }else if(typeof n2.tag ==='object'){
+    mountCompostions(n2, container)
   }
 }
 // 挂载元素操作
@@ -45,3 +45,37 @@ function mountChildren (children, container) {
     patch(null, ele, container)
   }
 }
+
+// 挂载组件的操作
+/*
+  1.创建元素
+  2.判断child的属性 a.若为数组，则对数组循环处理，b.字符串时则插入到文本中
+  3.插入到对应的dom节点上
+*/
+function mountCompostions (vnode, container) {
+  const instance = { // 创建元素实例
+    vnode,
+    tag: vnode.tag,
+    render: null, // setup返回的结果
+    subTree: null, // 子元素
+  }
+  let props = matchProps(vnode.props, vnode.tag.props) //匹配props的值
+  let compostion = instance.tag
+  instance.render = compostion.setup(props)  // 返回()=>({tag:'div',props:',childern:null}) 的函数
+  instance.subTree = instance.render&& instance.render()
+  patch(null, instance.subTree, container)
+}
+
+// 匹配props的值
+ function matchProps(props,tagProps){
+   if (tagProps){
+     let resProps={}
+     for (const key in tagProps) {
+       if (props.hasOwnProperty(key)){
+         resProps[key] = props[key]
+       }
+     }
+     return resProps
+   }
+
+ }

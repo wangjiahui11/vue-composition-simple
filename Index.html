@@ -14,10 +14,22 @@
   <script>
     let { render } = Vue
     const state = { count: 0 };
+    const MyComponent = {
+      props:{
+        title:null
+      },
+      setup(props, context) {
+        return () => ({
+          tag: 'div',
+          props: { style: { color: 'blue',marginTop:'10px' }, onClick: () =>state.count++ },
+          children: '组件' + props.title+'-------'+'点击我'
+        })
+      }
+    }
     const vnode = {
       tag: 'div',
       props: {
-        style: { color: 'red', border: '1px solid yellow',padding:'20px' }
+        style: { color: 'red', border: '1px solid yellow', padding: '20px' }
       },
       children:
         [{
@@ -30,15 +42,20 @@
             onClick: () => alert(state.count)
           },
           children: '点我啊'
-        }]
+        },
+         { tag: MyComponent,
+          props: {title:'title',test:'test'}, //组件的属性
+          children: '' // 组件插槽
+        },
+      ]
     }
     render(vnode, app);
   </script>
 </body>
 
 </html>
-<style >
-  p{
+<style>
+  p {
     /* border: 1px solid yellow; */
   }
 
