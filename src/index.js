@@ -62,8 +62,11 @@ function mountCompostions (vnode, container) {
   let props = matchProps(vnode.props, vnode.tag.props) //匹配props的值
   let compostion = vnode.tag
   instance.render = compostion.setup(props, instance)  // 返回()=>({tag:'div',props:',childern:null}) 的函数
-  instance.subTree = instance.render&& instance.render()
-  patch(null, instance.subTree, container)
+  effect(() => {
+    // 给组件添加effect，组件中的属性变化时只执行对应方法
+    instance.subTree = instance.render&& instance.render()
+    patch(null, instance.subTree, container)
+  })
 }
 
 // 匹配props的值
@@ -77,5 +80,4 @@ function mountCompostions (vnode, container) {
      }
      return resProps
    }
-
  }

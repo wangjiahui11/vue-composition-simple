@@ -64,7 +64,7 @@
           {
             tag: 'p',
             props: { onClick: () => state.count++ },
-            children: `点击调用Proxy set的方法-----${state.count}`
+            children: `点击调用Proxy set的方法----${state.name}`
           }, {
             tag: 'button',
             props: {
@@ -74,6 +74,7 @@
           }
         ]
       }
+      // debugger
       render(vnode, app);
     })
 
