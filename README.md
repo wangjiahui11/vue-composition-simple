@@ -488,7 +488,7 @@
         }
   ```
 
-  参考：
+  参考：https://github.com/wangjiahui11/vue-composition-simple/commit/c99bd2007945eebed23ac1501851248b5592faac
 
 - 
 
