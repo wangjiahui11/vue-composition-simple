@@ -8,7 +8,7 @@ export function effect(fn) {
 export function reactive(target) {
   return new Proxy(target,{
     get (target, key, receiver) {
-      // 判断是否为对象
+      // 判断是否为对象 懒递归，取值后才递归操作
       if(typeof target[key] === 'object'){
         return reactive(target[key])  // 递归处理
       }
