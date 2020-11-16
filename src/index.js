@@ -1,4 +1,5 @@
 import { nodeOps } from './runtime-dom';
+export * from './reactivity';  // 导入后导出；
 
 // container挂载的容器
 export function render (vnode, container) {
@@ -55,13 +56,12 @@ function mountChildren (children, container) {
 function mountCompostions (vnode, container) {
   const instance = { // 创建元素实例
     vnode,
-    tag: vnode.tag,
     render: null, // setup返回的结果
     subTree: null, // 子元素
   }
   let props = matchProps(vnode.props, vnode.tag.props) //匹配props的值
-  let compostion = instance.tag
-  instance.render = compostion.setup(props)  // 返回()=>({tag:'div',props:',childern:null}) 的函数
+  let compostion = vnode.tag
+  instance.render = compostion.setup(props, instance)  // 返回()=>({tag:'div',props:',childern:null}) 的函数
   instance.subTree = instance.render&& instance.render()
   patch(null, instance.subTree, container)
 }

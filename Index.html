@@ -12,17 +12,17 @@
 <body>
   <div id='app'></div>
   <script>
-    let { render } = Vue
-    const state = { count: 0 };
+    let { render, effect, reactive } = Vue
+    const state = reactive({ count: 0,name: '龙山王散人' })
     const MyComponent = {
-      props:{
-        title:null
+      props: {
+        title: null
       },
       setup(props, context) {
         return () => ({
           tag: 'div',
-          props: { style: { color: 'blue',marginTop:'10px' }, onClick: () =>state.count++ },
-          children: '组件' + props.title+'-------'+'点击我'
+          props: { style: { color: 'blue', marginTop: '10px' }, onClick: () => state.count++ },
+          children: '组件' + props.title + '-------' + '点击我'
         })
       }
     }
@@ -43,13 +43,40 @@
           },
           children: '点我啊'
         },
-         { tag: MyComponent,
-          props: {title:'title',test:'test'}, //组件的属性
+        {
+          tag: MyComponent,
+          props: { title: 'title', test: 'test' }, //组件的属性
           children: '' // 组件插槽
         },
-      ]
+        ]
     }
-    render(vnode, app);
+    // render(vnode, app);
+
+
+    effect(() => {
+      // 每次都需要渲染---后期再做diff算法
+      const vnode = {
+        tag: 'div',
+        props: {
+          style: { color: 'red', border: '1px solid blue', padding: '2px',margin:'2px' },
+        },
+        children: [
+          {
+            tag: 'p',
+            props: { onClick: () => state.count++ },
+            children: `点击调用Proxy set的方法-----${state.count}`
+          }, {
+            tag: 'button',
+            props: {
+              onClick: () => state.name = '名字变了'
+            },
+            children: '点我啊'
+          }
+        ]
+      }
+      render(vnode, app);
+    })
+
   </script>
 </body>
 
