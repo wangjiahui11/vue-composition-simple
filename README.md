@@ -2,7 +2,7 @@
 
 ## vue3.0 源码分析
 
-### 了解知识点
+### 了解知识点1
 
 1. [Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 2. [WeakMap](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
